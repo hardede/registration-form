@@ -16,7 +16,9 @@
 }
 
 @layer components {
-  
+  * {
+    @apply font-tt-regular;
+  }
   .btn {
     @apply mr-5 px-5 text-sm leading-[16.73px] font-medium text-[#F0F0F0] uppercase font-tt-medium;
   }
@@ -24,9 +26,9 @@
     @apply mr-5 py-2.5 px-5 bg-[#00D8BE] rounded-lg text-sm leading-[16.73px] text-[#1A1C2A] uppercase font-tt-medium;
   }
   .form-signup {
-    @apply px-[52px] py-[60px] w-[573px] h-[645px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px]
+    @apply px-[52px] py-[60px] w-[573px] h-[645px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
   .form-login {
-    @apply px-[52px] py-[60px] w-[573px] h-[573px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px]
+    @apply px-[52px] py-[60px] w-[573px] h-[573px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
 }

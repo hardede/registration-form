@@ -3,9 +3,21 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { switchTheme } from "./chakraTheme";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo/client";
+
+const theme = extendTheme({
+  components: { Switch: switchTheme },
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <ApolloProvider client={client}>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ChakraProvider>
+  </ApolloProvider>
 );
