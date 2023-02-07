@@ -21,6 +21,7 @@
     "react-hook-form": "^7.43.1",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.8.0",
+    "react18-input-otp": "^1.1.2",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
@@ -32,5 +33,8 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4",
     "vite": "^4.1.0"
-  }
+  },
+  "main": "main.jsx",
+  "repository": "https://github.com/hardede/registration-form.git",
+  "license": "MIT"
 }

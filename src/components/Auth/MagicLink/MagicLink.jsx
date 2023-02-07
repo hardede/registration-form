@@ -4,16 +4,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LOGIN_USER_PASSWORD } from "../../../apollo/Auth/Registration";
+import { LOGIN_USER_MAGIC_LINK } from "../../../apollo/Auth/Registration";
 import FormLayout from "../../Layout/FormLayout";
-import { registerSchema } from "../../Schema/RegisterSchema";
+import { MagicLinkSchema } from "../../Schema/MagicLinkSchema";
 import IdentifyInput from "../../UI/RegistrationInput";
 
-const Login = () => {
+const MagicLink = () => {
   const [codeActive, setCodeActive] = useState(false);
   const navigate = useNavigate();
-  const [loginUserPassword, { loading, error }] =
-    useMutation(LOGIN_USER_PASSWORD);
+  const [loginUserMagicLink, { loading, error }] = useMutation(
+    LOGIN_USER_MAGIC_LINK
+  );
 
   const {
     register,
@@ -22,14 +23,15 @@ const Login = () => {
     reset,
   } = useForm({
     mode: "onChange",
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(MagicLinkSchema),
   });
 
   const onSubmit = data => {
-    loginUserPassword({
-      variables: { input: { email: data.email, password: data.password } },
+    loginUserMagicLink({
+      variables: { input: { email: data.email, strategy: "MAGIC_LINK" } },
     });
     reset();
+    navigate("/confirm_code");
   };
 
   return (
@@ -53,9 +55,9 @@ const Login = () => {
             <p className="text-red-500">{errors.email?.message}</p>
             <FormControl
               className="my-6 flex items-center"
-              onClick={() => navigate("magic_link")}
+              onClick={() => navigate("/login")}
             >
-              <Switch id="log-with-code" />
+              <Switch id="log-with-code" isChecked />
               <FormLabel
                 className="text-[#F0F0F0] ml-3"
                 htmlFor="log-with-code"
@@ -64,25 +66,6 @@ const Login = () => {
                 Log with code
               </FormLabel>
             </FormControl>
-            <>
-              <label
-                htmlFor="password"
-                className="flex flex-col text-[#F0F0F0] mb-1 text-sm leading-[17px]"
-              >
-                Password
-              </label>
-              <IdentifyInput
-                {...register("password")}
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-              />
-              <p className="text-red-500">{errors.password?.message}</p>
-              <div className="mt-[15px] mb-6 uppercase text-right text-base leading-[19px] text-[#00D8BE] cursor-pointer">
-                Forgot your password?
-              </div>
-            </>
-
             <input
               type="submit"
               value="Log in"
@@ -95,4 +78,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default MagicLink;

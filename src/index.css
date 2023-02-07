@@ -31,4 +31,8 @@
   .form-login {
     @apply px-[52px] py-[60px] w-[573px] h-[573px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
+  .form-confirm {
+    @apply px-[52px] py-[60px] w-[573px] h-[415px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
+  }
+  
 }

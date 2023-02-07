@@ -1,23 +1,34 @@
+import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { REGISTER_NEW_USER } from "../../../apollo/Auth/Registration";
 import FormLayout from "../../Layout/FormLayout";
 import { registerSchema } from "../../Schema/RegisterSchema";
 import IdentifyInput from "../../UI/RegistrationInput";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [registrationNewUser, { loading, error }] =
+    useMutation(REGISTER_NEW_USER);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(registerSchema),
   });
 
   const onSubmit = data => {
-    console.log("🚀 ~ file: SignUp.jsx:27 ~ onSubmit ~ data", data);
+    registrationNewUser({
+      variables: { input: { email: data.email, password: data.password } },
+    });
     reset();
+    navigate("/confirm_code");
   };
 
   return (
