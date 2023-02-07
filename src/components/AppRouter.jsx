@@ -14,9 +14,9 @@ const AppRouter = () => {
         <Route path="/login" />
         <Route path="login" >
           <Route index element={<Login />} />
-          <Route path="magic_link" element={<MagicLink />} />
+          {/* <Route path="magic_link" element={<MagicLink />} /> */}
         </Route>
-        <Route path="/confirm_code" element={<ConfirmCode />} />
+        {/* <Route path="/confirm_code" element={<ConfirmCode />} /> */}
       </Route>
     </Routes>
   );

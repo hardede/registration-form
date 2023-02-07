@@ -1,30 +1,29 @@
 import { useMutation } from "@apollo/client";
+import { Spinner } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { default as Otp } from "react18-input-otp";
 import { CONFIRM_EMAIL } from "../../../apollo/Auth/ConfirmEmail";
 import PopupBackButton from "../../../assets/PopupBackButton.svg";
 import FormFooter from "../FormFooter/FormFooter";
 
-const ConfirmCode = () => {
+const ConfirmCode = ({ email, strategy }) => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [confirmEmail, { loading, error }] =
-    useMutation(CONFIRM_EMAIL);
+  const [confirmEmail, { loading, error }] = useMutation(CONFIRM_EMAIL);
 
   const {
-    register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm({
     mode: "onChange",
   });
+  
 
   const onSubmit = () => {
     confirmEmail({
-      variables: { input: {  code: otp, strategy: "PASSWORD" } },
+      variables: { input: { email: email, code: otp, strategy: strategy } },
     });
     reset();
   };
@@ -32,6 +31,13 @@ const ConfirmCode = () => {
   const handleChange = enteredOtp => {
     setOtp(enteredOtp);
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
+  if (error) {
+    return <h2 className="text-red-500">Error...</h2>;
+  } 
 
   return (
     <div className="mt-[140px] flex justify-center">
