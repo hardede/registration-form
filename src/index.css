@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "TT-medium";
+    font-weight: 500;
+    src: url("/static/fonts/TT Commons Medium.otf");
+  }
+  @font-face {
+    font-family: "TT-regular";
+    font-weight: 400;
+    src: url("/static/fonts/TT Commons Regular.otf");
+  }
+}
+
+@layer components {
+  
+  .btn {
+    @apply mr-5 px-5 text-sm leading-[16.73px] font-medium text-[#F0F0F0] uppercase font-tt-medium;
+  }
+  .btn-active {
+    @apply mr-5 py-2.5 px-5 bg-[#00D8BE] rounded-lg text-sm leading-[16.73px] text-[#1A1C2A] uppercase font-tt-medium;
+  }
+  .form-signup {
+    @apply px-[52px] py-[60px] w-[573px] h-[645px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px]
+  }
+  .form-login {
+    @apply px-[52px] py-[60px] w-[573px] h-[573px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px]
+  }
+}
