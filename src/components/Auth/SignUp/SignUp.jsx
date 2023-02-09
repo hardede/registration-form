@@ -1,5 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { Spinner } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,8 +11,9 @@ import ConfirmCode from "../ConfirmCode/ConfirmCode";
 const SignUp = () => {
   const [confirm, setConfirm] = useState(false);
   const [email, setEmail] = useState("");
-  const [registrationNewUser, { loading, error }] =
-    useMutation(REGISTER_NEW_USER);
+  const [registrationNewUser] = useMutation(REGISTER_NEW_USER, {
+    context: { clientName: "auth" },
+  });
 
   const {
     register,
@@ -33,13 +33,6 @@ const SignUp = () => {
     reset();
     setConfirm(true);
   };
-
-  if (loading) {
-    return <Spinner />;
-  }
-  if (error) {
-    return <h2>Error...</h2>;
-  }
 
   return (
     <>
@@ -119,7 +112,7 @@ const SignUp = () => {
                 <input
                   type="submit"
                   value="Sign up"
-                  className="bg-[#00D8BE] rounded-lg mt-4 w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer"
+                  className="form-confirm-btn mt-4"
                 />
               </form>
             </FormLayout>

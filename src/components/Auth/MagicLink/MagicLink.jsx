@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { FormControl, FormLabel, Spinner, Switch } from "@chakra-ui/react";
+import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -14,9 +14,9 @@ const MagicLink = () => {
   const [codeActive, setCodeActive] = useState(true);
   const [confirm, setConfirm] = useState(false);
   const [email, setEmail] = useState("");
-  const [loginUserMagicLink, { loading, error }] = useMutation(
-    LOGIN_USER_MAGIC_LINK
-  );
+  const [loginUserMagicLink] = useMutation(LOGIN_USER_MAGIC_LINK, {
+    context: { clientName: "auth" },
+  });
 
   const {
     register,
@@ -36,13 +36,6 @@ const MagicLink = () => {
     reset();
     setConfirm(true);
   };
-
-  if (loading) {
-    return <Spinner />;
-  }
-  if (error) {
-    return <h2>Error...</h2>;
-  } 
 
   return (
     <>
@@ -85,7 +78,7 @@ const MagicLink = () => {
                   <input
                     type="submit"
                     value="Log in"
-                    className="bg-[#00D8BE] rounded-lg  w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer"
+                    className="form-confirm-btn"
                   />
                 </form>
               </FormLayout>

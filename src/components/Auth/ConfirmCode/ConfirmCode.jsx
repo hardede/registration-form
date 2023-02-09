@@ -1,5 +1,4 @@
 import { useMutation } from "@apollo/client";
-import { Spinner } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -11,15 +10,13 @@ import FormFooter from "../FormFooter/FormFooter";
 const ConfirmCode = ({ email, strategy }) => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-  const [confirmEmail, { loading, error }] = useMutation(CONFIRM_EMAIL);
+  const [confirmEmail, { data: JWTTokens }] = useMutation(CONFIRM_EMAIL, {
+    context: { clientName: "auth" },
+  });
 
-  const {
-    handleSubmit,
-    reset,
-  } = useForm({
+  const { handleSubmit, reset } = useForm({
     mode: "onChange",
   });
-  
 
   const onSubmit = () => {
     confirmEmail({
@@ -32,12 +29,12 @@ const ConfirmCode = ({ email, strategy }) => {
     setOtp(enteredOtp);
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-  if (error) {
-    return <h2 className="text-red-500">Error...</h2>;
-  } 
+  useEffect(() => {
+    if (JWTTokens) {
+      localStorage.setItem("token", JWTTokens.signIn.accessToken);
+      navigate("/profile");
+    }
+  }, [JWTTokens]);
 
   return (
     <div className="mt-[140px] flex justify-center">
@@ -73,7 +70,7 @@ const ConfirmCode = ({ email, strategy }) => {
           <input
             type="submit"
             value="Confirm"
-            className="bg-[#00D8BE] rounded-lg mt-4 w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer"
+            className="form-confirm-btn mt-4"
           />
         </form>
         <FormFooter />

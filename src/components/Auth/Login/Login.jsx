@@ -1,8 +1,9 @@
 import { useMutation } from "@apollo/client";
-import { FormControl, FormLabel, Spinner, Switch } from "@chakra-ui/react";
+import { FormControl, FormLabel, Switch } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { LOGIN_USER_PASSWORD } from "../../../apollo/Auth/Identify";
 import FormLayout from "../../Layout/FormLayout";
 import { LoginSchema } from "../../Schema/LoginSchema";
@@ -11,9 +12,11 @@ import MagicLink from "../MagicLink/MagicLink";
 
 const Login = () => {
   const [codeActive, setCodeActive] = useState(false);
-  console.log("🚀 ~ file: Login.jsx:14 ~ Login ~ codeActive", codeActive);
-  const [loginUserPassword, { loading, error }] =
-    useMutation(LOGIN_USER_PASSWORD);
+  const navigate = useNavigate();
+  const [loginUserPassword, { data: JWTTokens }] = useMutation(
+    LOGIN_USER_PASSWORD,
+    { context: { clientName: "auth" } }
+  );
 
   const {
     register,
@@ -27,17 +30,23 @@ const Login = () => {
 
   const onSubmit = data => {
     loginUserPassword({
-      variables: { input: { email: data.email, password: data.password } },
+      variables: {
+        input: {
+          email: data.email,
+          password: data.password,
+          strategy: "PASSWORD",
+        },
+      },
     });
     reset();
   };
 
-  if (loading) {
-    return <Spinner />;
-  }
-  if (error) {
-    return <h2>Error...</h2>;
-  } 
+  useEffect(() => {
+    if (JWTTokens) {
+      localStorage.setItem("token", JWTTokens.signIn.accessToken);
+      navigate("/profile");
+    }
+  }, [JWTTokens]);
 
   return (
     <>
@@ -89,7 +98,10 @@ const Login = () => {
                     placeholder="Enter your password"
                   />
                   <p className="text-red-500">{errors.password?.message}</p>
-                  <div className="mt-[15px] mb-6 uppercase text-right text-base leading-[19px] text-[#00D8BE] cursor-pointer">
+                  <div
+                    className="mt-[15px] mb-6 uppercase text-right text-base leading-[19px] text-[#00D8BE] cursor-pointer"
+                    onClick={() => setCodeActive(!codeActive)}
+                  >
                     Forgot your password?
                   </div>
                 </>
@@ -97,7 +109,7 @@ const Login = () => {
                 <input
                   type="submit"
                   value="Log in"
-                  className="bg-[#00D8BE] rounded-lg  w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer"
+                  className="form-confirm-btn"
                 />
               </form>
             </FormLayout>

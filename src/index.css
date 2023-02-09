@@ -34,5 +34,7 @@
   .form-confirm {
     @apply px-[52px] py-[60px] w-[573px] h-[415px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
-  
+  .form-confirm-btn {
+    @apply bg-[#00D8BE] rounded-lg  text-[16px] leading-[20px] font-tt-medium w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer;
+  }
 }
