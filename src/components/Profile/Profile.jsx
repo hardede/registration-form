@@ -18,9 +18,7 @@ const Profile = () => {
     }
   }, [data]);
 
-  console.log("🚀 ~ file: Profile.jsx:7 ~ Profile ~ userProfile", userProfile.email);
-
-  return <div className="bg-red-500"></div>;
+  return <div className="mt-[100px] bg-red-500">{userProfile.email}</div>;
 };
 
 export default Profile;
