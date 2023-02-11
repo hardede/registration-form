@@ -8,7 +8,7 @@ const PrivateLayout = () => {
   }
 
   return (
-    <div className="flex flex-col justify-between min-h-screen bg-bg-register bg-cover bg-center">
+    <div className="flex flex-col min-h-screen bg-[#141422]">
       <Header />
       <main>
         <Outlet />

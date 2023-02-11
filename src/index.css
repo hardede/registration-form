@@ -13,6 +13,11 @@
     font-weight: 400;
     src: url("/static/fonts/TT Commons Regular.otf");
   }
+  @font-face {
+    font-family: "TT-light";
+    font-weight: 300;
+    src: url("/static/fonts/TT Commons Light.otf");
+  }
 }
 
 @layer components {
@@ -32,9 +37,36 @@
     @apply px-[52px] py-[60px] w-[573px] h-[573px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
   .form-confirm {
-    @apply px-[52px] py-[60px] w-[573px] h-[415px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
+    @apply px-[52px] py-[60px] w-[573px] h-[490px] bg-[#1a1c2a] border border-solid border-[#2B2E3E]  rounded-[12px];
   }
   .form-confirm-btn {
     @apply bg-[#00D8BE] rounded-lg  text-[16px] leading-[20px] font-tt-medium w-full py-[10.5px] text-[#141422] hover:bg-opacity-80 disabled:bg-opacity-60 cursor-pointer;
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #8f8f9f;
+  -webkit-text-fill-color: #f0f0f0;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+#chakra-modal-mymodal {
+  width: 320px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background-color: #2b2e3e;
+  padding: 0 41px;
+  margin: 0;
+  transform: translateX(0%) translateY(0px) translateZ(0px);
 }
