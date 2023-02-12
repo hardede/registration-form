@@ -39,7 +39,7 @@ const SignUp = () => {
       {confirm ? (
         <ConfirmCode email={email} strategy="PASSWORD" />
       ) : (
-        <div className="mt-[140px] flex justify-center">
+        <div className="mt-[80px] flex justify-center">
           <div className="form-signup">
             <FormLayout>
               <form onSubmit={handleSubmit(onSubmit)}>

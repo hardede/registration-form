@@ -7,11 +7,11 @@ import HeaderPrivate from "./HeaderPrivate";
 const Header = () => {
   const [header, setHeader] = useState(false);
 
-   useEffect(() => {
-     if (localStorage.getItem("token") !== null) {
-       setHeader(!header);
-     }
-   }, []);
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      setHeader(!header);
+    }
+  }, []);
 
   return (
     <header className="sticky top-0 w-full z-200 px-[85px] h-[54px] bg-[#1A1C2A] sm:h-[64px]">

@@ -53,7 +53,7 @@ const Login = () => {
       {codeActive ? (
         <MagicLink />
       ) : (
-        <div className="mt-[140px] flex justify-center">
+        <div className="mt-[80px] flex justify-center">
           <div className="form-login">
             <FormLayout>
               <form onSubmit={handleSubmit(onSubmit)}>

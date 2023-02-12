@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col justify-between min-h-screen bg-bg_register bg-cover bg-center">
+    <div className="flex flex-col min-h-screen bg-bg_register bg-cover bg-center">
       <Header />
       <main>
         <Outlet />

@@ -43,7 +43,7 @@ const MagicLink = () => {
         confirm ? (
           <ConfirmCode email={email} strategy="MAGIC_LINK" />
         ) : (
-          <div className="mt-[140px] flex justify-center">
+          <div className="mt-[80px] flex justify-center">
             <div className="form-login">
               <FormLayout>
                 <form onSubmit={handleSubmit(onSubmit)}>

@@ -4,9 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { default as Otp } from "react18-input-otp";
 import { CONFIRM_EMAIL } from "../../../apollo/Auth/ConfirmEmail";
-import PopupBackButton from "../../../assets/PopupBackButton.svg";
 import FormLayout from "../../Layout/FormLayout";
-import FormFooter from "../FormFooter/FormFooter";
 
 const ConfirmCode = ({ email, strategy }) => {
   const [otp, setOtp] = useState("");
@@ -14,7 +12,6 @@ const ConfirmCode = ({ email, strategy }) => {
   const [confirmEmail, { data: JWTTokens }] = useMutation(CONFIRM_EMAIL, {
     context: { clientName: "auth" },
   });
-  console.log("🚀 ~ file: ConfirmCode.jsx:17 ~ ConfirmCode ~ JWTTokens", JWTTokens)
 
   const { handleSubmit, reset } = useForm({
     mode: "onChange",
@@ -39,11 +36,8 @@ const ConfirmCode = ({ email, strategy }) => {
   }, [JWTTokens]);
 
   return (
-    <div className="mt-[140px] flex justify-center">
+    <div className="mt-[80px] flex justify-center">
       <div className="form-confirm">
-        {/* <div onClick={() => navigate(-1)}>
-          <img src={PopupBackButton} />
-        </div> */}
         <FormLayout>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="text-[#F0F0F0] text-xl leading-[26px] text-center">
