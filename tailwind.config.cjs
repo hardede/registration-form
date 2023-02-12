@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        "bg-register": "url('./src/assets/bg-register.png')",
+        bg_register: "url('./assets/bg-register.png')",
         uploadPhoto: "url('./src/assets/UploadPhoto.svg')",
       },
       fontFamily: {
