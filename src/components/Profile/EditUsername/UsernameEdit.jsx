@@ -1,16 +1,18 @@
+import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { GET_PROFILE } from "../../../apollo/Profile/getProfile";
+import { USERNAME_EDIT } from "../../../apollo/Profile/usernameEdit";
 import { UsernameEditSchema } from "../../Schema/UpdateUsername";
 import ProfileInput from "../../UI/ProfileInput";
 
-const UsernameEdit = ({
-  username,
-  usernameEdit,
-  onSubmit,
-  onOpen,
-  onClose,
-}) => {
+const UsernameEdit = ({ username }) => {
+  const [usernameEdit, setUsernameEdit] = useState(false);
+  const [usernameToEdit, { client }] = useMutation(USERNAME_EDIT, {
+    context: { clientName: "profile" },
+  });
+
   const {
     register,
     handleSubmit,
@@ -18,6 +20,16 @@ const UsernameEdit = ({
   } = useForm({
     resolver: yupResolver(UsernameEditSchema),
   });
+
+  const onSubmit = async data => {
+    usernameToEdit({
+      variables: { input: { username: data.username } },
+    });
+    setUsernameEdit(false);
+    await client.refetchQueries({
+      include: [GET_PROFILE],
+    });
+  };
 
   return (
     <>
@@ -32,7 +44,7 @@ const UsernameEdit = ({
             </p>
             <button
               className="uppercase text-center rounded-[8px] transition disabled:cursor-not-allowed text-[14px] leading-[17px] font-semibold text-[#00d8be]"
-              onClick={onOpen}
+              onClick={() => setUsernameEdit(!usernameEdit)}
             >
               Edit
             </button>
@@ -60,7 +72,7 @@ const UsernameEdit = ({
             <button
               className="uppercase text-center rounded-[8px] transition disabled:cursor-not-allowed  text-[#f0f0f0] text-[16px] leading-[21px] font-semibold sm:max-w-[196px] w-full py-[11px] bg-[#424659] hover:bg-[#343848]"
               type="reset"
-              onClick={onClose}
+              onClick={() => setUsernameEdit(!usernameEdit)}
             >
               Cancel
             </button>

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const TRANSACTION_POP_UP = gql`
-  mutation transactionPopUp($input: UpdatePreferencesInput!) {
+export const TRANSACTION_NOTICES = gql`
+  mutation transactionNotices($input: UpdatePreferencesInput!) {
     updatePreferences(input: $input) {
       preferences {
         transactionsPushNotifications

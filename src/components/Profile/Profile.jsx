@@ -1,45 +1,19 @@
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { Checkbox } from "@chakra-ui/react";
+import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { GET_PROFILE } from "../../apollo/Profile/getProfile";
-import { GAME_POP_UP } from "../../apollo/Profile/PopUps/gamePopUp";
-import { TRANSACTION_POP_UP } from "../../apollo/Profile/PopUps/transactionsPopUp";
-import { USERNAME_EDIT } from "../../apollo/Profile/usernameEdit";
+import GameNotification from "./EditEmailNotification/gameNotification";
+import TransactionNotification from "./EditEmailNotification/TransactionNotification";
 import UsernameEdit from "./EditUsername/UsernameEdit";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
-  const [usernameEdit, setUsernameEdit] = useState(false);
-  const [gamePopUps, setGamePopUps] = useState();
-  const [transactionPopUps, setTransactionPopUps] = useState();
+  const [gameNotice, setGameNotice] = useState();
+  const [transactionNotice, setTransactionNotice] = useState();
 
   const [getProfile, { data }] = useLazyQuery(GET_PROFILE, {
     context: { clientName: "profile" },
   });
-  const [usernameToEdit] = useMutation(USERNAME_EDIT, {
-    context: { clientName: "profile" },
-    refetchQueries: () => [
-      {
-        query: GET_PROFILE,
-      },
-    ],
-  });
-  const [gamePopUp] = useMutation(GAME_POP_UP, {
-    context: { clientName: "profile" },
-    refetchQueries: () => [
-      {
-        query: GET_PROFILE,
-      },
-    ],
-  });
-  const [transactionPopUp] = useMutation(TRANSACTION_POP_UP, {
-    context: { clientName: "profile" },
-    refetchQueries: () => [
-      {
-        query: GET_PROFILE,
-      },
-    ],
-  });
+  console.log("🚀 ~ file: Profile.jsx:19 ~ Profile ~ data", data);
 
   useEffect(() => {
     getProfile();
@@ -53,43 +27,12 @@ const Profile = () => {
 
   useEffect(() => {
     if (userProfile.preferences) {
-      setGamePopUps(userProfile.preferences.gameEmailNotifications);
-      setTransactionPopUps(
+      setGameNotice(userProfile.preferences.gameEmailNotifications);
+      setTransactionNotice(
         userProfile.preferences.transactionsEmailNotifications
       );
     }
   }, [userProfile]);
-
-  const onSubmit = data => {
-    usernameToEdit({
-      variables: { input: { username: data.username } },
-    });
-    setUsernameEdit(false);
-  };
-
-  const onClickGamePopUp = () => {
-    setGamePopUps(!gamePopUps);
-    gamePopUp({
-      variables: {
-        input: {
-          gamePushNotifications: !gamePopUps,
-          gameEmailNotifications: !gamePopUps,
-        },
-      },
-    });
-  };
-  
-  const onClickTransactionPopUp = () => {
-    setTransactionPopUps(!transactionPopUps);
-    transactionPopUp({
-      variables: {
-        input: {
-          transactionsEmailNotifications: !transactionPopUps,
-          transactionsPushNotifications: !transactionPopUps,
-        },
-      },
-    });
-  };
 
   return (
     <div className="container max-w-[1196px] pt-[30px] sm:pt-[40px] lg:pt-[80px] pb-[90px]">
@@ -111,13 +54,7 @@ const Profile = () => {
                     </p>
                   </div>
                 </div>
-                <UsernameEdit
-                  username={userProfile.username}
-                  onSubmit={onSubmit}
-                  usernameEdit={usernameEdit}
-                  onOpen={() => setUsernameEdit(true)}
-                  onClose={() => setUsernameEdit(false)}
-                />
+                <UsernameEdit username={userProfile.username} />
                 <div className="flex flex-col">
                   <p className="text-[#F0F0F0]   text-[14px] leading-[18px] font-normal">
                     Email
@@ -142,30 +79,14 @@ const Profile = () => {
                     Email
                   </p>
                 </div>
-                <div className="flex flex-row items-center justify-between border-b border-[#424659] pb-[20px] mb-[20px]">
-                  <p className="text-[#F0F0F0] text-[16px] leading-[20px] font-normal">
-                    Game notifications
-                  </p>
-                  <div className="flex flex-row gap-[18px]">
-                    <Checkbox
-                      isChecked={gamePopUps}
-                      size="lg"
-                      onChange={onClickGamePopUp}
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-row items-center justify-between border-b border-[#424659] pb-[20px] mb-[20px]">
-                  <p className="text-[#F0F0F0] text-[16px] leading-[20px] font-normal">
-                    Transaction notifications
-                  </p>
-                  <div className="flex flex-row gap-[18px]">
-                    <Checkbox
-                      isChecked={transactionPopUps}
-                      size="lg"
-                      onChange={onClickTransactionPopUp}
-                    />
-                  </div>
-                </div>
+                <GameNotification
+                  gameNotice={gameNotice}
+                  setGameNotice={setGameNotice}
+                />
+                <TransactionNotification
+                  transactionNotice={transactionNotice}
+                  setTransactionNotice={setTransactionNotice}
+                />
               </div>
             </div>
           </div>

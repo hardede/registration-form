@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const GAME_POP_UP= gql`
-  mutation gamePopUp($input: UpdatePreferencesInput!) {
+export const GAME_NOTICES= gql`
+  mutation gameNotices($input: UpdatePreferencesInput!) {
     updatePreferences(input: $input) {
       preferences {
         gamePushNotifications
