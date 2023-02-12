@@ -1,7 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { RetryLink } from "@apollo/client/link/retry";
-import { GET_PROFILE } from "./Profile/getProfile";
 
 let directionalLink = new RetryLink().split(
   operation => operation.getContext().clientName === "auth",
@@ -23,7 +22,5 @@ const client = new ApolloClient({
   link: authLink.concat(directionalLink),
   cache: new InMemoryCache(),
 });
-
-
 
 export default client;

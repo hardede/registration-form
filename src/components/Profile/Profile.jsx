@@ -1,7 +1,7 @@
 import { useLazyQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
 import { GET_PROFILE } from "../../apollo/Profile/getProfile";
-import GameNotification from "./EditEmailNotification/gameNotification";
+import GameNotification from "./EditEmailNotification/GameNotification";
 import TransactionNotification from "./EditEmailNotification/TransactionNotification";
 import UsernameEdit from "./EditUsername/UsernameEdit";
 
@@ -13,7 +13,6 @@ const Profile = () => {
   const [getProfile, { data }] = useLazyQuery(GET_PROFILE, {
     context: { clientName: "profile" },
   });
-  console.log("🚀 ~ file: Profile.jsx:19 ~ Profile ~ data", data);
 
   useEffect(() => {
     getProfile();
