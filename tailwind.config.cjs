@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         bg_register: "url('./assets/bg-register.png')",
-        uploadPhoto: "url('./src/assets/UploadPhoto.svg')",
+        uploadPhoto: "url('./assets/UploadPhoto.svg')",
       },
       fontFamily: {
         "tt-medium": ["TT-medium"],
