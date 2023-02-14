@@ -1,13 +1,12 @@
+import { ApolloProvider } from "@apollo/client";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { switchTheme } from "./customThemeChakra/switchTheme";
-import { ApolloProvider } from "@apollo/client";
 import client from "./apollo/client";
+import App from "./App";
 import { checkboxTheme } from "./customThemeChakra/checkBoxTheme";
+import { switchTheme } from "./customThemeChakra/switchTheme";
+import "./index.css";
 
 const theme = extendTheme({
   components: {
@@ -19,9 +18,9 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ApolloProvider client={client}>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </ChakraProvider>
   </ApolloProvider>
 );
