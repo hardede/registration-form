@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import client from "./apollo/client";
 import App from "./App";
 import { checkboxTheme } from "./customThemeChakra/checkBoxTheme";
@@ -19,9 +19,9 @@ const theme = extendTheme({
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ApolloProvider client={client}>
     <ChakraProvider theme={theme}>
-      <HashRouter>
+      <BrowserRouter>
         <App />
-      </HashRouter>
+      </BrowserRouter>
     </ChakraProvider>
   </ApolloProvider>
 );
