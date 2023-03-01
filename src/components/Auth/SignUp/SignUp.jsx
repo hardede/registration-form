@@ -12,7 +12,7 @@ const SignUp = () => {
   const [confirm, setConfirm] = useState(false);
   const [email, setEmail] = useState("");
   const [registrationNewUser] = useMutation(REGISTER_NEW_USER, {
-    context: { clientName: "auth" },
+    context: { uri: "https://api.develop.rivalfantasy.com/auth/graphql" },
   });
 
   const {

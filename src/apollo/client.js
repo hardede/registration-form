@@ -1,12 +1,14 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, from, HttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { RetryLink } from "@apollo/client/link/retry";
+import { createUploadLink } from "apollo-upload-client";
 
-let directionalLink = new RetryLink().split(
-  operation => operation.getContext().clientName === "auth",
-  new HttpLink({ uri: "https://api.develop.rivalfantasy.com/auth/graphql" }),
-  new HttpLink({ uri: "https://api.develop.rivalfantasy.com/profile/graphql" })
-);
+const link = new HttpLink({
+  uri: "/graphql",
+});
+
+const uploadLink = createUploadLink({
+  uri: `https://api.develop.rivalfantasy.com/profile/graphql`,
+});
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");
@@ -19,7 +21,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(directionalLink),
+  link: from([uploadLink, authLink, link]),
   cache: new InMemoryCache(),
 });
 

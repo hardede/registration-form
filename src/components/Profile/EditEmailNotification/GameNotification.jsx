@@ -6,7 +6,7 @@ import { GAME_NOTICES } from "../../../apollo/Profile/Notice/gameNotices";
 
 const GameNotification = ({ gameNotice, setGameNotice }) => {
   const [gameNotification, { client }] = useMutation(GAME_NOTICES, {
-    context: { clientName: "profile" },
+    context: { uri: "https://api.develop.rivalfantasy.com/profile/graphql" },
   });
 
   const onClickGameNotice = async () => {

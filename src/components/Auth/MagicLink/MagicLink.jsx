@@ -15,7 +15,7 @@ const MagicLink = () => {
   const [confirm, setConfirm] = useState(false);
   const [email, setEmail] = useState("");
   const [loginUserMagicLink] = useMutation(LOGIN_USER_MAGIC_LINK, {
-    context: { clientName: "auth" },
+    context: { uri: "https://api.develop.rivalfantasy.com/auth/graphql" },
   });
 
   const {

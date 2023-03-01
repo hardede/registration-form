@@ -11,7 +11,7 @@ const TransactionNotification = ({
   const [transactionNotification, { client }] = useMutation(
     TRANSACTION_NOTICES,
     {
-      context: { clientName: "profile" },
+      context: { uri: "https://api.develop.rivalfantasy.com/profile/graphql" },
     }
   );
 

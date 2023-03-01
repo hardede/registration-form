@@ -22,12 +22,12 @@ export const modalLinks = [
   },
   {
     id: uuidv4(),
-    href: "/favorite_players",
-    title: "Favorite players",
+    href: "/me/chat",
+    title: "Chat",
   },
   {
     id: uuidv4(),
-    href: "/settings",
+    href: "/me/profile",
     title: "Settings",
   },
 ];

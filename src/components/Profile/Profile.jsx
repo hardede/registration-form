@@ -1,17 +1,21 @@
 import { useLazyQuery } from "@apollo/client";
+import { useDisclosure } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { GET_PROFILE } from "../../apollo/Profile/getProfile";
+import UploadPhoto from "../Modal/UploadPhoto/UploadPhoto";
 import GameNotification from "./EditEmailNotification/GameNotification";
 import TransactionNotification from "./EditEmailNotification/TransactionNotification";
+import EditPassword from "./EditPassword/EditPassword";
 import UsernameEdit from "./EditUsername/UsernameEdit";
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState({});
   const [gameNotice, setGameNotice] = useState();
   const [transactionNotice, setTransactionNotice] = useState();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [getProfile, { data }] = useLazyQuery(GET_PROFILE, {
-    context: { clientName: "profile" },
+    context: { uri: "https://api.develop.rivalfantasy.com/profile/graphql" },
   });
 
   useEffect(() => {
@@ -89,13 +93,27 @@ const Profile = () => {
               </div>
             </div>
           </div>
+          <div>
+            <h2 className="text-[#F0F0F0]  text-[20px] sm:text-[24px] leading-[24px] sm:leading-[28px] font-[500]  mb-[16px]">
+              Security
+            </h2>
+            <div className="bg-[#1a1c2a] px-[12px] py-[16px] sm:p-[24px] rounded-[8px]">
+              <div className="flex flex-col gap-[4px]">
+                <EditPassword />
+              </div>
+            </div>
+          </div>
         </div>
         <div className="flex flex-col gap-[16px] order-1 lg:order-2">
           <div className="bg-cover bg-no-repeat bg-center bg-uploadPhoto h-[100px] lg:h-[172px] w-[100px] lg:w-[172px] rounded-full"></div>
-          <div className="text-[14px] leading-[18px] font-semibold uppercase text-[#00D8BE] cursor-pointer text-center">
+          <div
+            className="text-[14px] leading-[18px] font-semibold uppercase text-[#00D8BE] cursor-pointer text-center"
+            onClick={onOpen}
+          >
             upload photo
           </div>
         </div>
+        <UploadPhoto isOpen={isOpen} onClose={onClose} />
       </div>
     </div>
   );

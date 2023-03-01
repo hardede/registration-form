@@ -1,3 +1,4 @@
+import { useLazyQuery } from "@apollo/client";
 import {
   Button,
   Modal,
@@ -5,15 +6,35 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  ModalOverlay
+  ModalOverlay,
 } from "@chakra-ui/react";
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { GET_PROFILE } from "../../../apollo/Profile/getProfile";
 import adult from "../../../assets/18+.svg";
-import { modalLinks, modalLinksSup, modalSocialLinks } from '../../constants/modalLinks';
+import {
+  modalLinks,
+  modalLinksSup,
+  modalSocialLinks,
+} from "../../constants/modalLinks";
 
-const HeaderModal = ({ isOpen, onOpen, onClose }) => {
+const HeaderModal = ({ isOpen, onClose, balance }) => {
   const finalRef = useRef(null);
+  const [userProfile, setUserProfile] = useState({});
+  const [getProfile, { data }] = useLazyQuery(GET_PROFILE, {
+    context: { uri: "https://api.develop.rivalfantasy.com/profile/graphql" },
+  });
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setUserProfile(data.getProfile);
+    }
+  }, [data]);
+
   const onClickLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -37,13 +58,13 @@ const HeaderModal = ({ isOpen, onOpen, onClose }) => {
             </div>
             <div className="font-tt-medium">
               <p className="text-[#F0F0F0] text-[16px] leading-[18px]">
-                Player
+                {userProfile.username}
               </p>
               <div className="text-[14px] leading-[14px]">
                 <span className="text-[#8f8f9f] capitalize  mr-[5px]">
                   Balance:
                 </span>
-                <span className="text-[#00D8BE]">0.00</span>
+                <span className="text-[#00D8BE]">{balance}</span>
               </div>
             </div>
           </div>
@@ -120,7 +141,7 @@ const HeaderModal = ({ isOpen, onOpen, onClose }) => {
                   to={icons.href}
                   className="w-[32px] h-[32px] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center cursor-pointer"
                 >
-                  <img src={icons.url} />
+                  <img src={icons.url} alt={icons.href} />
                 </Link>
               ))}
             </div>
@@ -145,4 +166,4 @@ const HeaderModal = ({ isOpen, onOpen, onClose }) => {
   );
 };
 
-export default HeaderModal
+export default HeaderModal;

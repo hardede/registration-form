@@ -15,7 +15,9 @@ const Login = () => {
   const navigate = useNavigate();
   const [loginUserPassword, { data: JWTTokens }] = useMutation(
     LOGIN_USER_PASSWORD,
-    { context: { clientName: "auth" } }
+    {
+      context: { uri: "https://api.develop.rivalfantasy.com/auth/graphql" },
+    }
   );
 
   const {
@@ -44,9 +46,9 @@ const Login = () => {
   useEffect(() => {
     if (JWTTokens) {
       localStorage.setItem("token", JWTTokens.signIn.accessToken);
-      navigate("/profile");
+      navigate("/me/profile");
     }
-  }, [JWTTokens]);
+  }, [JWTTokens, navigate]);
 
   return (
     <>

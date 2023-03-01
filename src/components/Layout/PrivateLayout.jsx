@@ -1,8 +1,17 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import Header from '../Header/Header';
+import React, { useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import Header from "../Header/Header";
+import ActivityService from "../../services/ActivityService";
 
 const PrivateLayout = () => {
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      ActivityService.init();
+    } else {
+      ActivityService.destruct();
+    }
+  }, []);
+
   if (localStorage.getItem("token") === null) {
     return <Navigate to="/login" />;
   }
@@ -15,6 +24,6 @@ const PrivateLayout = () => {
       </main>
     </div>
   );
-}
+};
 
-export default PrivateLayout
+export default PrivateLayout;

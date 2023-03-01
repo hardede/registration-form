@@ -70,3 +70,38 @@ select:-webkit-autofill:focus {
   margin: 0;
   transform: translateX(0%) translateY(0px) translateZ(0px);
 }
+
+#chakra-modal-uploadmodal {
+  max-width: 512px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #141422;
+  margin: 0;
+  transform: translateX(0%) translateY(0px) translateZ(0px);
+}
+
+.input-container {
+  border: 2px dashed rgb(151, 151, 151);
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  height: 300px;
+}
+
+.input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.label {
+  color: #f0f0f0;
+  font-size: 22px;
+  cursor: pointer;
+  display: block;
+  line-height: 300px;
+}

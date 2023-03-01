@@ -10,7 +10,7 @@ const ConfirmCode = ({ email, strategy }) => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
   const [confirmEmail, { data: JWTTokens }] = useMutation(CONFIRM_EMAIL, {
-    context: { clientName: "auth" },
+    context: { uri: "https://api.develop.rivalfantasy.com/auth/graphql" },
   });
 
   const { handleSubmit, reset } = useForm({
