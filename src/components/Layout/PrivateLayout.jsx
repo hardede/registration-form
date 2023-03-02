@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Header from "../Header/Header";
 import ActivityService from "../../services/ActivityService";
+import Header from "../Header/Header";
 
 const PrivateLayout = () => {
   useEffect(() => {

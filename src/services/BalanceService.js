@@ -11,7 +11,9 @@ const balanceSocket = {
 
   init: function () {
     if (!this.socket.connected) {
-      this.socket.connect();
+     let token = localStorage.getItem("token");
+     this.socket.connect();
+     this.socket.auth.token = token;
 
       this.socket.onAny((eventName, ...args) => {
         console.warn(eventName, args);

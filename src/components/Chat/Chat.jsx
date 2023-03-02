@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -12,6 +12,7 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState({});
+  // const scrollRef = useRef(null);
   const nav = useLocation();
   const path = nav.pathname.split("/").reverse()[0];
 
@@ -25,7 +26,7 @@ const Chat = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
+    if (localStorage.getItem("token") !== undefined) {
       MessengerService.init();
     } else {
       MessengerService.destruct();
@@ -59,6 +60,13 @@ const Chat = () => {
       chatUuid: chatId.uuid,
       text: message,
     });
+    // setTimeout(() => {
+    //   if (scrollRef.current && messages[path].length > 5) {
+    //     const { scrollHeight, clientHeight } = scrollRef.current;
+    //     const maxScrollTop = scrollHeight - clientHeight;
+    //     scrollRef.current.scrollTop = maxScrollTop;
+    //   }
+    // }, 2000);
 
     reset();
   };
@@ -74,11 +82,12 @@ const Chat = () => {
             <ChatTabs chats={chats} path={path} />
             {path !== "chat" ? (
               <>
-                <div className="flex-grow-1 text-lg bg-[#1a1c2a] px-[12px] py-[16px] sm:p-[24px] rounded-[8px] h-[500px]">
+                <div className="grow w-full text-lg bg-[#1a1c2a] px-[12px] py-[16px] sm:p-[24px] rounded-[8px] h-[500px] flex flex-row items-end">
                   <Message
                     isLoading={isLoading}
                     messages={messages}
                     path={path}
+                    // scrollRef={scrollRef}
                   />
                 </div>
                 <form

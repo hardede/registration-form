@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const Message = ({ isLoading, messages, path }) => {
-  const [chatMessages, setChatMessages] = useState([]);
+  const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    setChatMessages(messages[path]);
+    chatBoxRef.current.scrollTop += chatBoxRef.current.scrollHeight;
   }, [messages, path]);
 
   return (
-    <div className="flex flex-col gap-[20px] bg-[#1a1c2a] px-[12px] py-[16px] sm:p-[24px] rounded-[8px] h-[500px]">
+    <div
+      className="flex flex-col gap-[20px] w-full max-h-[450px] overflow-scroll"
+      ref={chatBoxRef}
+    >
       {!isLoading ? (
         <>
-          {chatMessages.map(message => (
+          {messages[path].map(message => (
             <div
               key={message.uuid}
-              className="max-w-max flex flex-col gap-[4px] w-full flex-start"
+              className="max-w-max px-3 py-1 flex flex-col w-full items-start bg-slate-400 rounded-lg"
             >
-              <span className="text-white">{message.sender.username}</span>
               <div key={message.uuid} className="text-white">
                 {message.text}
               </div>
+              <span className="text-white text-sm">
+                sender: {message.sender.username}
+              </span>
             </div>
           ))}
         </>

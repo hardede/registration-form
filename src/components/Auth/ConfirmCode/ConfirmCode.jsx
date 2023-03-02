@@ -31,9 +31,9 @@ const ConfirmCode = ({ email, strategy }) => {
   useEffect(() => {
     if (JWTTokens) {
       localStorage.setItem("token", JWTTokens.confirmEmail.accessToken);
-      navigate("/profile");
+      navigate("/me/profile");
     }
-  }, [JWTTokens]);
+  }, [JWTTokens, navigate]);
 
   return (
     <div className="mt-[80px] flex justify-center">
