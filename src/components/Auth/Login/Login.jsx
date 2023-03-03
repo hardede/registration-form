@@ -19,7 +19,6 @@ const Login = () => {
       context: { uri: "https://api.develop.rivalfantasy.com/auth/graphql" },
     }
   );
-  console.log("🚀 ~ file: Login.jsx:17 ~ Login ~ JWTTokens:", JWTTokens);
 
   const {
     register,

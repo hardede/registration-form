@@ -12,9 +12,9 @@ const Chat = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [chats, setChats] = useState([]);
   const [messages, setMessages] = useState({});
-  // const scrollRef = useRef(null);
   const nav = useLocation();
   const path = nav.pathname.split("/").reverse()[0];
+  const chatBoxRef = useRef(null);
 
   const {
     register,
@@ -53,6 +53,26 @@ const Chat = () => {
     });
   }, []);
 
+  useEffect(() => {
+    MessengerService.socket.emit(
+      "GET_CHAT_HISTORY",
+      {
+        chatUuid: path,
+        limit: 10,
+        offset: 0,
+      },
+      ({ data }) => {
+        const uuid = data.map(item => item.chatUuid)[0];
+
+        const sortedData = data.reverse();
+        setMessages(prev => ({
+          ...prev,
+          [uuid]: [...prev[uuid], ...sortedData],
+        }));
+      }
+    );
+  }, [path]);
+
   const onSubmit = ({ message }) => {
     const chatId = chats.find(item => item.uuid === path);
     MessengerService.socket.emit("SEND_MESSAGE", {
@@ -60,13 +80,6 @@ const Chat = () => {
       chatUuid: chatId.uuid,
       text: message,
     });
-    // setTimeout(() => {
-    //   if (scrollRef.current && messages[path].length > 5) {
-    //     const { scrollHeight, clientHeight } = scrollRef.current;
-    //     const maxScrollTop = scrollHeight - clientHeight;
-    //     scrollRef.current.scrollTop = maxScrollTop;
-    //   }
-    // }, 2000);
 
     reset();
   };
@@ -82,14 +95,12 @@ const Chat = () => {
             <ChatTabs chats={chats} path={path} />
             {path !== "chat" ? (
               <>
-                <div className="grow w-full text-lg bg-[#1a1c2a] px-[12px] py-[16px] sm:p-[24px] rounded-[8px] h-[500px] flex flex-row items-end">
-                  <Message
-                    isLoading={isLoading}
-                    messages={messages}
-                    path={path}
-                    // scrollRef={scrollRef}
-                  />
-                </div>
+                <Message
+                  isLoading={isLoading}
+                  messages={messages}
+                  path={path}
+                  chatBoxRef={chatBoxRef}
+                />
                 <form
                   className="flex justify-center h-[50px] border border-gray-400 rounded-lg"
                   onSubmit={handleSubmit(onSubmit)}
