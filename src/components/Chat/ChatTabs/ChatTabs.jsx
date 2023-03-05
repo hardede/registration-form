@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ChatTabs = ({ chats, path }) => {
+const ChatTabs = ({ chats, path, setSelectedChat }) => {
   return (
     <div className="flex">
       {chats.map(chat => {
@@ -16,6 +16,7 @@ const ChatTabs = ({ chats, path }) => {
             to={`/me/chat/${chat.uuid}`}
             key={chat.uuid}
             className={chatActiveClass}
+            onClick={() => setSelectedChat(chat.uuid)}
           >
             {chat.name}
           </Link>

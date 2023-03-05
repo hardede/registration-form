@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { REGISTER_NEW_USER } from "../../../apollo/Auth/Identify";
 import FormLayout from "../../Layout/FormLayout";
-import { registerSchema } from "../../Schema/RegisterSchema";
+import { registerSchema } from "../../../services/Schema/RegisterSchema";
 import IdentifyInput from "../../UI/RegistrationInput";
 import ConfirmCode from "../ConfirmCode/ConfirmCode";
 

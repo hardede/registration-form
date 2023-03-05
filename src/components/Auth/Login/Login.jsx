@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_USER_PASSWORD } from "../../../apollo/Auth/Identify";
+import { LoginSchema } from "../../../services/Schema/LoginSchema";
 import FormLayout from "../../Layout/FormLayout";
-import { LoginSchema } from "../../Schema/LoginSchema";
 import IdentifyInput from "../../UI/RegistrationInput";
 import MagicLink from "../MagicLink/MagicLink";
 

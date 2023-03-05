@@ -25,10 +25,6 @@ const HeaderPrivate = () => {
   }, []);
 
   BalanceService.socket.on("BALANCE_UPDATED", ({ data }) => {
-    console.log(
-      "🚀 ~ file: HeaderPrivate.jsx:30 ~ socket.on ~ dataw121312:",
-      data
-    );
   });
 
   BalanceService.socket.emit("GET_BALANCE", payload, ({ data }) => {
@@ -57,7 +53,6 @@ const HeaderPrivate = () => {
         {headerIcon.map(icon => (
           <div
             key={icon.id}
-            onClick={() => console.log(icon.url)}
             className="hidden xl:flex items-center px-[16px] md:px-[20px] border-l border-[#343848] h-full hover:bg-[#2b2e3e] cursor-pointer"
           >
             <img src={icon.url} className="w-[22px] h-[22px]" alt={icon.url} />

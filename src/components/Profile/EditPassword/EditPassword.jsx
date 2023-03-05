@@ -2,10 +2,10 @@ import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { UpdatePasswordSchema } from "../../Schema/ChangePasswordSchema";
 import { GET_PROFILE } from "../../../apollo/Profile/getProfile";
-import ProfileInput from "../../UI/ProfileInput";
 import { PASSWORD_EDIT } from "../../../apollo/Profile/passwordEdit";
+import { UpdatePasswordSchema } from "../../../services/Schema/ChangePasswordSchema";
+import ProfileInput from "../../UI/ProfileInput";
 
 const EditPassword = () => {
   const [passwordEdit, setPasswordEdit] = useState(false);

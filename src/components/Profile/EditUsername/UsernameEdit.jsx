@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GET_PROFILE } from "../../../apollo/Profile/getProfile";
 import { USERNAME_EDIT } from "../../../apollo/Profile/usernameEdit";
-import { UsernameEditSchema } from "../../Schema/UpdateUsername";
+import { UsernameEditSchema } from "../../../services/Schema/UpdateUsername";
 import ProfileInput from "../../UI/ProfileInput";
 
 const UsernameEdit = ({ username }) => {
