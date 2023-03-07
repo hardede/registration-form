@@ -60,8 +60,6 @@ const Chat = () => {
           offset: 0,
         },
         ({ data }) => {
-          
-
           db.rx.message.bulkInsert(data);
         }
       );
@@ -69,7 +67,11 @@ const Chat = () => {
   }, [selectedChat]);
 
   if (isFetching) {
-    return <div>loading chats...</div>;
+    return (
+      <div className="h-full flex justify-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#00D8BE]"></div>
+      </div>
+    );
   }
 
   const onSubmit = ({ message }) => {

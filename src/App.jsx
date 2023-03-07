@@ -8,7 +8,7 @@ const App = () => {
   const [dbState, setDbState] = useState();
 
   useEffect(() => {
-    if (localStorage.getItem("token") !== undefined) {
+    if (localStorage.getItem("token") !== null) {
       MessengerService.init();
     } else {
       MessengerService.destruct();
